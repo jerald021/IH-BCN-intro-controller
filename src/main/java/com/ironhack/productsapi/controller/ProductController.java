@@ -38,11 +38,16 @@ public class ProductController {
     @ResponseStatus(HttpStatus.OK)
     public Product findByName(@PathVariable String name) {
 
+        /*
+
         if (productRepository.findByProductName(name).isPresent()) {
             return productRepository.findByProductName(name).get();
         } else {
             return null;
         }
+         */
+
+        return productRepository.findByProductName(name);
     }
 
     @GetMapping("find-product/price/")
