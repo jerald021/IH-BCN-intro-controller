@@ -60,9 +60,25 @@ public class ProductController {
     }
 
     @PostMapping("/products/add")
-    @ResponseStatus(HttpStatus.CREATED)
+    @ResponseStatus(HttpStatus.OK)
     public Product addProduct(@RequestBody @Valid Product product) {
          return productRepository.save(product);
     }
 
+    @PutMapping("/products/put")
+    public Product putProduct(@RequestBody @Valid Product product){
+        return productRepository.save(product);
+    }
+    @PatchMapping("/products/product/edit-product/{id}")
+    public Product editProduct(@PathVariable long id, @RequestBody double newPrice){
+        Product product = productRepository.findById(id).get();
+        product.setPrice(newPrice);
+        return productRepository.save(product);
+    }
+
+    @DeleteMapping("/products/product/delete/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public void deleteProduct(@PathVariable long id){
+        productRepository.deleteById(id);
+    }
 }
