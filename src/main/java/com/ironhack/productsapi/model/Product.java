@@ -8,6 +8,7 @@ import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
+import java.util.List;
 
 enum Status {
     ON_STOCK, AWAITING, EXPIRED;
@@ -28,6 +29,8 @@ public class Product {
     @Enumerated
     @NotNull
     private Status status;
+    @OneToMany(mappedBy = "product")
+    private List<Review> reviews;
 
     public Product() {
     }
