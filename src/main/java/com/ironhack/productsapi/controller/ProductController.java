@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
@@ -38,14 +39,6 @@ public class ProductController {
     @ResponseStatus(HttpStatus.OK)
     public Product findByName(@PathVariable String name) {
 
-        /*
-
-        if (productRepository.findByProductName(name).isPresent()) {
-            return productRepository.findByProductName(name).get();
-        } else {
-            return null;
-        }
-         */
 
         return productRepository.findByProductName(name);
     }
@@ -62,11 +55,14 @@ public class ProductController {
             min1 = min.get();
         }
 
-
-
         return productRepository.findByPriceBetween(min1, max1);
 
     }
 
+    @PostMapping("/products/add")
+    @ResponseStatus(HttpStatus.CREATED)
+    public Product addProduct(@RequestBody @Valid Product product) {
+         return productRepository.save(product);
+    }
 
 }
